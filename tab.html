@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        * {
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .wrapper {
+
+            height: 6em;
+            width:80%;
+            margin: 30px auto;
+            background: repeating-linear-gradient(
+                    to bottom,
+                    transparent 0 calc(100% / 6 - 1px), #000 calc(100% / 6 - 1px) calc(100% / 6)) 0 -0.5em;
+            position: relative;
+        }
+
+        .note {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0px 0.2em;
+            line-height: 1em;
+            width: 0.5em;
+            background: #fff;
+            transform: translate(calc(var(--x, 0) * 100%), calc(var(--y, 0) * 100%));
+        }
+    </style>
+
+
+</head>
+<body>
+
+<h1>Først sektion</h1>
+
+<div class="wrapper" style="font-size:20px">
+    <span class="note" style="--x:0;--y:0">E</span>
+    <span class="note" style="--x:0;--y:1">H</span>
+    <span class="note" style="--x:0;--y:2">A</span>
+    <span class="note" style="--x:0;--y:3">D</span>
+    <span class="note" style="--x:0;--y:4">A</span>
+    <span class="note" style="--x:0;--y:5">E</span>
+<!--    <span class="note" style="&#45;&#45;x:2;&#45;&#45;y:4">5</span>
+    <span class="note" style="&#45;&#45;x:3;&#45;&#45;y:3">7</span>
+    <span class="note" style="&#45;&#45;x:4;&#45;&#45;y:2">0</span>
+    <span class="note" style="&#45;&#45;x:5;&#45;&#45;y:1">7</span>
+    <span class="note" style="&#45;&#45;x:6;&#45;&#45;y:2">0</span>
+    <span class="note" style="&#45;&#45;x:7;&#45;&#45;y:3">7</span>
+    <span class="note" style="&#45;&#45;x:8;&#45;&#45;y:4">5</span> -->
+
+</div>
+
+
+
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
+<script>
+
+    let current = 2;
+
+
+    
+    function insertArpp(notes,startsring,ascending) {
+
+        const wrapper = $('.wrapper');
+
+        notes.forEach((note,i) => {
+            if(ascending) {
+                wrapper.append(`<span class="note" style="--x:${current++};--y:${startsring - i}">${note}</span>`)
+            } else {
+                wrapper.append(`<span class="note" style="--x:${current++};--y:${startsring + i}">${note}</span>`)
+            }
+
+
+        })
+
+
+
+
+    }
+    
+    function insertSweep(notes) {
+        
+    }
+
+    insertArpp([5,7,0],4,true);
+    insertArpp([5,7],1,false);
+    insertArpp([7,0,7],3,true);
+    insertArpp([0,7,0,7],0,false);
+    //---------------------------
+    insertArpp([5,7,0],4,true);
+    insertArpp([5,7,0,7],1,false);
+    insertArpp([7,0,7],3,true);
+    insertArpp([0,7,0,7],0,false);
+
+
+
+
+</script>
+
+
+</body>
+</html>
