@@ -12,12 +12,17 @@
 
         h1 {
             text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            text-align: center;
         }
 
         .wrapper {
 
             height: 6em;
-            width:80%;
+            width: 900px;
             margin: 30px auto;
             background: repeating-linear-gradient(
                     to bottom,
@@ -41,25 +46,26 @@
 </head>
 <body>
 
-<h1>Først sektion</h1>
+<h1>Første sektion</h1>
 
-<div class="wrapper" style="font-size:20px">
+*<p><strong>*Husk at stemme dit G op i A</strong></p>
+
+<div id="0" class="wrapper" style="font-size:20px">
     <span class="note" style="--x:0;--y:0">E</span>
     <span class="note" style="--x:0;--y:1">H</span>
     <span class="note" style="--x:0;--y:2">A</span>
     <span class="note" style="--x:0;--y:3">D</span>
     <span class="note" style="--x:0;--y:4">A</span>
     <span class="note" style="--x:0;--y:5">E</span>
-<!--    <span class="note" style="&#45;&#45;x:2;&#45;&#45;y:4">5</span>
-    <span class="note" style="&#45;&#45;x:3;&#45;&#45;y:3">7</span>
-    <span class="note" style="&#45;&#45;x:4;&#45;&#45;y:2">0</span>
-    <span class="note" style="&#45;&#45;x:5;&#45;&#45;y:1">7</span>
-    <span class="note" style="&#45;&#45;x:6;&#45;&#45;y:2">0</span>
-    <span class="note" style="&#45;&#45;x:7;&#45;&#45;y:3">7</span>
-    <span class="note" style="&#45;&#45;x:8;&#45;&#45;y:4">5</span> -->
+    <!--    <span class="note" style="&#45;&#45;x:2;&#45;&#45;y:4">5</span>
+        <span class="note" style="&#45;&#45;x:3;&#45;&#45;y:3">7</span>
+        <span class="note" style="&#45;&#45;x:4;&#45;&#45;y:2">0</span>
+        <span class="note" style="&#45;&#45;x:5;&#45;&#45;y:1">7</span>
+        <span class="note" style="&#45;&#45;x:6;&#45;&#45;y:2">0</span>
+        <span class="note" style="&#45;&#45;x:7;&#45;&#45;y:3">7</span>
+        <span class="note" style="&#45;&#45;x:8;&#45;&#45;y:4">5</span> -->
 
 </div>
-
 
 
 <script
@@ -70,41 +76,57 @@
 <script>
 
     let current = 2;
+    let wrapperNum = 0;
+    let wrapper = $(`#${wrapperNum}`);
 
+    function insertArpp(notes, start, ascending) {
 
-    
-    function insertArpp(notes,startsring,ascending) {
+        start--;
 
-        const wrapper = $('.wrapper');
-
-        notes.forEach((note,i) => {
-            if(ascending) {
-                wrapper.append(`<span class="note" style="--x:${current++};--y:${startsring - i}">${note}</span>`)
+        notes.forEach((note, i) => {
+            if (ascending) {
+                wrapper.append(`<span class="note" style="--x:${current++};--y:${start - i}">${note}</span>`)
             } else {
-                wrapper.append(`<span class="note" style="--x:${current++};--y:${startsring + i}">${note}</span>`)
+                wrapper.append(`<span class="note" style="--x:${current++};--y:${start + i}">${note}</span>`)
             }
 
+            if(current % 50 === 0) {
+                insertWrapper();
+                wrapper = $(`#${wrapperNum}`);
+                current = 2;
+            }
 
-        })
-
-
-
-
+        });
     }
-    
+
     function insertSweep(notes) {
-        
+
+
+
     }
 
-    insertArpp([5,7,0],4,true);
-    insertArpp([5,7],1,false);
-    insertArpp([7,0,7],3,true);
-    insertArpp([0,7,0,7],0,false);
+    function insertWrapper() {
+        const body = $('body');
+
+        body.append(`
+            <div id="${++wrapperNum}" class="wrapper" style="font-size:20px">
+                <span class="note" style="--x:0;--y:0">E</span>
+                <span class="note" style="--x:0;--y:1">H</span>
+                <span class="note" style="--x:0;--y:2">A</span>
+                <span class="note" style="--x:0;--y:3">D</span>
+                <span class="note" style="--x:0;--y:4">A</span>
+                <span class="note" style="--x:0;--y:5">E</span>
+            </div>
+        `)
+
+
+    }
+
+    insertArpp([5, 7, 0], 5, true);
+    insertArpp([5, 0, 7], 2, false);
+    insertArpp([7, 0, 7, 0], 4, true);
+    insertArpp([7, 0, 7], 2, false);
     //---------------------------
-    insertArpp([5,7,0],4,true);
-    insertArpp([5,7,0,7],1,false);
-    insertArpp([7,0,7],3,true);
-    insertArpp([0,7,0,7],0,false);
 
 
 
