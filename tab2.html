@@ -7,14 +7,24 @@
     <style>
 
         body {
-            font-size: 32px;
+            font-size: 25px;
+            font-family: sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        p {
+            font-size: 16px;
+            text-align: center;
         }
 
         .wrapper {
             position: relative;
             height: 6em;
-            width: 900px;
-            margin:0 auto;
+            width: 28.3em;
+            margin: 1em auto;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -27,22 +37,25 @@
         }
 
         .note {
-            position:absolute;
+            position: absolute;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family:sans-serif;
-            top:0;
-            left:0;
+            font-family: sans-serif;
+            top: 0;
+            left: 0;
             height: 1em;
             width: 1em;
             background: #fff;
-            box-sizing: border-box;
         }
 
     </style>
 </head>
 <body>
+
+<h1>Første sektion</h1>
+<p>Husk at stemme dit G op i A. (Pas på med gamle strenge, da disse godt kan springe)</p>
+
 <div id="0" class="wrapper">
     <div class="string"></div>
     <div class="string"></div>
@@ -50,8 +63,12 @@
     <div class="string"></div>
     <div class="string"></div>
     <div class="string"></div>
-
-
+    <span class="note" style="transform: translate(0,0)">E</span>
+    <span class="note" style="transform: translate(0,100%)">H</span>
+    <span class="note" style="transform: translate(0,200%)">A</span>
+    <span class="note" style="transform: translate(0,300%)">D</span>
+    <span class="note" style="transform: translate(0,400%)">A</span>
+    <span class="note" style="transform: translate(0,500%)">E</span>
 
 
 </div>
@@ -62,7 +79,7 @@
         crossorigin="anonymous"></script>
 
 <script>
-    let current = 0;
+    let current = 1;
     let wrapperNum = 0;
     let wrapper = $(`#${wrapperNum}`);
 
@@ -72,20 +89,18 @@
 
         if (ascending) {
             notes.forEach((note, i) => {
-                wrapper.append(`<span class="note" style="transform: translate(${100*i}%,0)">${note}</span>`)
+                wrapper.append(`<span class="note" style="transform: translate(${100 * ++current}%,${(100 * start) + (-i * 100)}%)">${note}</span>`)
 
                 checkWrapperCapacity()
             });
         } else {
             notes.reverse().forEach((note, i) => {
-                wrapper.append(`<span class="note" style="--x:${current += 2};--y:${start + i}">${note}</span>`)
+                wrapper.append(`<span class="note" style="transform: translate(${100 * ++current}%,${(100 * start) - (-i * 100)}%)">${note}</span>`)
 
                 checkWrapperCapacity()
 
             })
         }
-
-
 
 
     }
@@ -94,31 +109,63 @@
         const body = $('body');
 
         body.append(`
-            <div id="${++wrapperNum}" class="wrapper" style="font-size:20px">
-                <span class="note" style="--x:0;--y:0">E</span>
-                <span class="note" style="--x:0;--y:1">H</span>
-                <span class="note" style="--x:0;--y:2">A</span>
-                <span class="note" style="--x:0;--y:3">D</span>
-                <span class="note" style="--x:0;--y:4">A</span>
-                <span class="note" style="--x:0;--y:5">E</span>
+
+            <div id="${++wrapperNum}" class="wrapper">
+                <div class="string"></div>
+                <div class="string"></div>
+                <div class="string"></div>
+                <div class="string"></div>
+                <div class="string"></div>
+                <div class="string"></div>
+                <span class="note" style="transform: translate(0,0)">E</span>
+                <span class="note" style="transform: translate(0,100%)">H</span>
+                <span class="note" style="transform: translate(0,200%)">A</span>
+                <span class="note" style="transform: translate(0,300%)">D</span>
+                <span class="note" style="transform: translate(0,400%)">A</span>
+                <span class="note" style="transform: translate(0,500%)">E</span>
             </div>
         `)
 
-
+        wrapper = $(`#${wrapperNum}`);
+        current = 1;
     }
 
     function checkWrapperCapacity() {
-        if (current % 52 === 0) {
+        if (current % 27 === 0) {
             insertWrapper();
-            wrapper = $(`#${wrapperNum}`);
-            current = 0;
+
         }
+
     }
 
-  //  insertArpp([1,2,3],5,true)
+    insertArpp([5, 7, 0, 7], 5, true);
+    insertArpp([7, 0], 3, false);
+    //-------------------------
+    insertArpp([7, 0, 7, 0], 4, true);
+    insertArpp([0, 7], 2, false);
+    //-------------------------
+    insertArpp([7, 9, 0, 8], 5, true);
+    insertArpp([9, 0], 3, false);
+    insertArpp([5, 7, 0, 7], 5, true);
+    insertArpp([7, 0], 3, false);
+    //---
+    insertArpp([5, 7, 0, 7], 5, true);
+    insertArpp([7, 0], 3, false);
+    insertArpp([7, 0, 7, 0], 4, true);
+    insertArpp([0, 7], 2, false);
+    //--------
+    insertArpp([7, 9, 0, 8], 5, true);
+    insertArpp([9, 0], 3, false);
+    //-----
+    insertArpp([0, 9, 0, 8], 5, true);
+    insertArpp([9, 0], 3, false);
+    //------
+    insertArpp([5, 7, 0, 7], 5, true);
+    insertArpp([7, 0], 3, false);
+    insertArpp([7, 0, 7, 0], 4, true);
+    insertArpp([0, 7], 2, false);
 
-    wrapper.append(`<span class="note" style="transform: translate(${100*2}%,${100*1}%)">3</span>`)
-    wrapper.append(`<span class="note" style="transform: translate(${100*1}%,${100*1}%)">3</span>`)
+
 
 </script>
 
