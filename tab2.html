@@ -89,13 +89,13 @@
 
         if (ascending) {
             notes.forEach((note, i) => {
-                wrapper.append(`<span class="note" style="transform: translate(${100 * ++current}%,${(100 * start) + (-i * 100)}%)">${note}</span>`)
+                wrapper.append(`<span class="note" style="transform: translate(${100 * ++current}%,${(100 * start) - (i * 100)}%)">${note}</span>`)
 
                 checkWrapperCapacity()
             });
         } else {
             notes.reverse().forEach((note, i) => {
-                wrapper.append(`<span class="note" style="transform: translate(${100 * ++current}%,${(100 * start) - (-i * 100)}%)">${note}</span>`)
+                wrapper.append(`<span class="note" style="transform: translate(${100 * ++current}%,${(100 * start) + (i * 100)}%)">${note}</span>`)
 
                 checkWrapperCapacity()
 
@@ -103,6 +103,26 @@
         }
 
 
+    }
+
+    function insertSweep(notes, start) {
+
+        current++;
+
+        const increment = 100/(notes.length-1);
+        start--;
+
+        notes.forEach((note, i) => {
+            wrapper.append(`<span class="note" style="transform: translate(${100 * current + i * increment}%,${(100 * start) - (i * 100)}%)">${note}</span>`);
+
+            checkWrapperCapacity()
+        });
+
+
+    }
+
+    function insertSpace() {
+        current++;
     }
 
     function insertWrapper() {
@@ -133,7 +153,6 @@
     function checkWrapperCapacity() {
         if (current % 27 === 0) {
             insertWrapper();
-
         }
 
     }
@@ -164,7 +183,11 @@
     insertArpp([7, 0], 3, false);
     insertArpp([7, 0, 7, 0], 4, true);
     insertArpp([0, 7], 2, false);
-
+    //------
+    insertArpp([5, 7, 0, 7], 5, true);
+    insertArpp([7, 0], 3, false);
+    insertSpace()
+    insertSweep([5, 7, 0, 7,0], 5, true)
 
 
 </script>
