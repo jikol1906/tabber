@@ -22,7 +22,7 @@
         .wrapper {
 
             height: 6em;
-            width: 900px;
+            width: 950px;
             margin: 30px auto;
             background: repeating-linear-gradient(
                     to bottom,
@@ -48,7 +48,7 @@
 
 <h1>Første sektion</h1>
 
-*<p><strong>*Husk at stemme dit G op i A</strong></p>
+<p><strong>*Husk at stemme dit G op i A</strong></p>
 
 <div id="0" class="wrapper" style="font-size:20px">
     <span class="note" style="--x:0;--y:0">E</span>
@@ -57,14 +57,6 @@
     <span class="note" style="--x:0;--y:3">D</span>
     <span class="note" style="--x:0;--y:4">A</span>
     <span class="note" style="--x:0;--y:5">E</span>
-    <!--    <span class="note" style="&#45;&#45;x:2;&#45;&#45;y:4">5</span>
-        <span class="note" style="&#45;&#45;x:3;&#45;&#45;y:3">7</span>
-        <span class="note" style="&#45;&#45;x:4;&#45;&#45;y:2">0</span>
-        <span class="note" style="&#45;&#45;x:5;&#45;&#45;y:1">7</span>
-        <span class="note" style="&#45;&#45;x:6;&#45;&#45;y:2">0</span>
-        <span class="note" style="&#45;&#45;x:7;&#45;&#45;y:3">7</span>
-        <span class="note" style="&#45;&#45;x:8;&#45;&#45;y:4">5</span> -->
-
 </div>
 
 
@@ -75,7 +67,7 @@
 
 <script>
 
-    let current = 2;
+    let current = 0;
     let wrapperNum = 0;
     let wrapper = $(`#${wrapperNum}`);
 
@@ -83,26 +75,36 @@
 
         start--;
 
-        notes.forEach((note, i) => {
-            if (ascending) {
-                wrapper.append(`<span class="note" style="--x:${current++};--y:${start - i}">${note}</span>`)
-            } else {
-                wrapper.append(`<span class="note" style="--x:${current++};--y:${start + i}">${note}</span>`)
-            }
+        if (ascending) {
+            notes.forEach((note, i) => {
+                wrapper.append(`<span class="note" style="--x:${current += 2};--y:${start - i}">${note}</span>`)
 
-            if(current % 50 === 0) {
-                insertWrapper();
-                wrapper = $(`#${wrapperNum}`);
-                current = 2;
-            }
+                checkWrapperCapacity()
+            });
+        } else {
+            notes.reverse().forEach((note, i) => {
+                wrapper.append(`<span class="note" style="--x:${current += 2};--y:${start + i}">${note}</span>`)
 
-        });
+                checkWrapperCapacity()
+
+            })
+        }
+
+
+
+
     }
 
-    function insertSweep(notes) {
+    function insertChord(notes, start) {
 
 
+        notes.forEach((note, i) => {
 
+            wrapper.append(`<span class="note" style="--x:${current};--y:${start - i}">${note}</span>`)
+
+        });
+
+        current += 2;
     }
 
     function insertWrapper() {
@@ -122,12 +124,24 @@
 
     }
 
-    insertArpp([5, 7, 0], 5, true);
-    insertArpp([5, 0, 7], 2, false);
-    insertArpp([7, 0, 7, 0], 4, true);
-    insertArpp([7, 0, 7], 2, false);
-    //---------------------------
+    function checkWrapperCapacity() {
+        if (current % 52 === 0) {
+            insertWrapper();
+            wrapper = $(`#${wrapperNum}`);
+            current = 0;
+        }
+    }
 
+    insertArpp([5, 7, 0,7], 5, true);
+    insertArpp([7,0], 3, false);
+    //-------------------------
+    insertArpp([7, 0, 7, 0], 4, true);
+    insertArpp([0, 7], 2, false);
+    //-------------------------
+    insertArpp([7,9,0,8], 5, true);
+    insertArpp([9,0], 3, false);
+    insertArpp([5, 7, 0,7], 5, true);
+    insertArpp([5, 7, 0], 3, false);
 
 
 
