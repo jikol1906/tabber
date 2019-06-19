@@ -48,7 +48,7 @@
 
 <h1>Første sektion</h1>
 
-<p><strong>*Husk at stemme dit G op i A</strong></p>
+<p><strong>*Husk at stemme dit G op i A (pas på hvis du har gamle strenge, da de kan springe)</strong></p>
 
 <div id="0" class="wrapper" style="font-size:20px">
     <span class="note" style="--x:0;--y:0">E</span>
@@ -141,9 +141,18 @@
     insertArpp([7,9,0,8], 5, true);
     insertArpp([9,0], 3, false);
     insertArpp([5, 7, 0,7], 5, true);
-    insertArpp([5, 7, 0], 3, false);
-
-
+    insertArpp([7, 0], 3, false);
+    //---
+    insertArpp([5, 7, 0,7], 5, true);
+    insertArpp([7,0], 3, false);
+    insertArpp([7, 0, 7, 0], 4, true);
+    insertArpp([0, 7], 2, false);
+    //--------
+    insertArpp([7,9,0,8], 5, true);
+    insertArpp([9,0], 3, false);
+    //-----
+    insertArpp([0,9,0,8], 5, true);
+    insertArpp([9,0], 3, false);
 
 </script>
 
