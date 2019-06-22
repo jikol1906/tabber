@@ -8,6 +8,7 @@
 
         body {
             font-size: 20px;
+            font-family: sans-serif;
         }
 
         h1 {
@@ -136,7 +137,9 @@
     function insertChord(notes,start) {
         start--;
         notes.forEach((note,i) => {
-            wrapper.append(`<span class="note" style="transform:translate(${100*current}%,${(100 * start) - (i * 100)}%)">${note}</span>`)
+            if(note >= 0) {
+                wrapper.append(`<span class="note" style="transform:translate(${100 * current}%,${(100 * start) - (i * 100)}%)">${note}</span>`)
+            }
         });
 
         current+=2;
@@ -244,8 +247,8 @@
     insertChord([0,2],3)
     insertNote(0,5);
     insertNote(5,4);
-    insertChord([0,2],3)
-    insertNote(5,4);
+    insertNote(2,2);
+    insertNote(0,3);
     insertNote(0,5);
     insertChord([2,0],2)
     insertNote(5,4);
@@ -265,9 +268,9 @@
     insertNote(2,2);
     insertNote(0,3);
     insertNote(0,1);
-    insertNote(5,4);
-    insertNote(2,2);
-    insertNote(0,3);
+    insertNote(0,2);
+    insertNote(4,3);
+    insertNote(0,1);
 
     insertSweep([0,5,2,3],5)
     insertChord([2,3],3)
@@ -278,8 +281,8 @@
     insertChord([0,2],3)
     insertNote(0,5);
     insertNote(5,4);
-    insertChord([0,2],3)
-    insertNote(5,4);
+    insertNote(2,2);
+    insertNote(0,3);
     insertNote(0,5);
     insertChord([2,0],2)
     insertNote(5,4);
@@ -299,9 +302,31 @@
     insertNote(2,2);
     insertNote(0,3);
     insertNote(0,1);
-    insertNote(5,4);
-    insertNote(2,2);
+    insertNote(0,2);
+    insertNote(4,3);
+    insertNote(0,1);
+
+    //-----Third section
+
+    insertChord([5,-1,-1,7],5)
     insertNote(0,3);
+    insertNote(7,4);
+    insertChord([7,-1,-1,0],4)
+    insertNote(7,2)
+    insertNote(0,3);
+    insertNote(7,4)
+
+
+    insertChord([7,-1,-1,8],5)
+    insertNote(0,3);
+    insertNote(9,4)
+
+//--------
+
+
+
+
+
 
 
 
