@@ -8,7 +8,6 @@
 
         body {
             font-size: 20px;
-            font-family: sans-serif;
         }
 
         h1 {
@@ -23,7 +22,7 @@
         .wrapper {
             position: relative;
             height: 6em;
-            width: 38em;
+            width: 37em;
             margin: 1em auto;
             display: flex;
             flex-direction: column;
@@ -32,7 +31,6 @@
 
         .string {
             height: 1px;
-            width: 100%;
             background: black;
         }
 
@@ -41,7 +39,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: sans-serif;
+
             top: 0;
             left: 0;
             height: 1em;
@@ -49,11 +47,19 @@
             background: #fff;
         }
 
+        .wrapper-num {
+            position: absolute;
+            font-size: 2.5em;
+            top:50%;
+            left:0;
+            transform: translate(-250%,-50%);
+        }
+
     </style>
 </head>
 <body>
 
-<h1>Første sektion</h1>
+<h1></h1>
 <p>Husk at stemme dit G op i A. (Pas på med gamle strenge, da disse godt kan springe)</p>
 
 <div id="0" class="wrapper">
@@ -63,6 +69,7 @@
     <div class="string"></div>
     <div class="string"></div>
     <div class="string"></div>
+    <span class="wrapper-num">1</span>
     <span class="note" style="transform: translate(0,0)">E</span>
     <span class="note" style="transform: translate(0,100%)">H</span>
     <span class="note" style="transform: translate(0,200%)">A</span>
@@ -90,13 +97,13 @@
 
         if (ascending) {
             notes.forEach((note, i) => {
-                wrapper.append(`<span class="note" style="transform: translate(${100 * ++current}%,${(100 * start) - (i * 100)}%)">${note}</span>`)
+                wrapper.append(`<span class="note" style="transform: translate(${100 * current++}%,${(100 * start) - (i * 100)}%)">${note}</span>`)
 
                 checkWrapperCapacity()
             });
         } else {
             notes.reverse().forEach((note, i) => {
-                wrapper.append(`<span class="note" style="transform: translate(${100 * ++current}%,${(100 * start) + (i * 100)}%)">${note}</span>`)
+                wrapper.append(`<span class="note" style="transform: translate(${100 * current++}%,${(100 * start) + (i * 100)}%)">${note}</span>`)
 
                 checkWrapperCapacity()
 
@@ -113,7 +120,7 @@
         const increment = 100/(notes.length-1);
         start--;
 
-        current++
+
 
         notes.forEach((note, i) => {
             wrapper.append(`<span class="note" style="transform: translate(${100 * current + i * increment}%,${(100 * start) - (i * 100)}%)">${note}</span>`);
@@ -133,6 +140,8 @@
         });
 
         current+=2;
+
+        checkWrapperCapacity();
     }
 
     function insertNote(note,string) {
@@ -142,6 +151,8 @@
         wrapper.append(`<span class="note" style="transform: translate(${100*current}%,${string*100}%)">${note}</span>`)
 
         current+=2;
+
+        checkWrapperCapacity();
     }
 
     function insertSpace() {
@@ -150,16 +161,18 @@
 
     function insertWrapper() {
 
+        wrapperNum++
 
         body.append(`
 
-            <div id="${++wrapperNum}" class="wrapper">
+            <div id="${wrapperNum}" class="wrapper">
                 <div class="string"></div>
                 <div class="string"></div>
                 <div class="string"></div>
                 <div class="string"></div>
                 <div class="string"></div>
                 <div class="string"></div>
+                <span class="wrapper-num">${wrapperNum+1}</span>
                 <span class="note" style="transform: translate(0,0)">E</span>
                 <span class="note" style="transform: translate(0,100%)">H</span>
                 <span class="note" style="transform: translate(0,200%)">A</span>
@@ -178,7 +191,7 @@
     }
 
     function checkWrapperCapacity() {
-        if (current % 37 === 0) {
+        if (current > 36) {
             insertWrapper();
         }
 
@@ -219,7 +232,7 @@
 
 
 
-    insertText('Anden sektion')
+
     insertWrapper()
 
     insertSweep([0,5,2,3],5)
@@ -229,6 +242,80 @@
     insertChord([2,3],3)
     insertNote(5,4);
     insertChord([0,2],3)
+    insertNote(0,5);
+    insertNote(5,4);
+    insertChord([0,2],3)
+    insertNote(5,4);
+    insertNote(0,5);
+    insertChord([2,0],2)
+    insertNote(5,4);
+    insertChord([2,3],3)
+    insertNote(0,5);
+
+    insertNote(5,4);
+    insertNote(3,2);
+    insertNote(2,3);
+    insertNote(0,5);
+    insertChord([2,0],2)
+
+    insertNote(5,4);
+    insertChord([0,2],3)
+    insertNote(0,5);
+    insertNote(5,4);
+    insertNote(2,2);
+    insertNote(0,3);
+    insertNote(0,1);
+    insertNote(5,4);
+    insertNote(2,2);
+    insertNote(0,3);
+
+    insertSweep([0,5,2,3],5)
+    insertChord([2,3],3)
+    insertNote(5,4);
+    insertNote(0,5);
+    insertChord([2,3],3)
+    insertNote(5,4);
+    insertChord([0,2],3)
+    insertNote(0,5);
+    insertNote(5,4);
+    insertChord([0,2],3)
+    insertNote(5,4);
+    insertNote(0,5);
+    insertChord([2,0],2)
+    insertNote(5,4);
+    insertChord([2,3],3)
+    insertNote(0,5);
+
+    insertNote(5,4);
+    insertNote(3,2);
+    insertNote(2,3);
+    insertNote(0,5);
+    insertChord([2,0],2)
+
+    insertNote(5,4);
+    insertChord([0,2],3)
+    insertNote(0,5);
+    insertNote(5,4);
+    insertNote(2,2);
+    insertNote(0,3);
+    insertNote(0,1);
+    insertNote(5,4);
+    insertNote(2,2);
+    insertNote(0,3);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
 
