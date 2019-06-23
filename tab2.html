@@ -24,7 +24,7 @@
             position: relative;
             height: 6em;
             width: 37em;
-            margin: 1em auto;
+            margin: 2em auto;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -51,17 +51,50 @@
         .wrapper-num {
             position: absolute;
             font-size: 2.5em;
-            top:50%;
-            left:0;
-            transform: translate(-250%,-50%);
+            top: 50%;
+            left: 0;
+            transform: translate(-250%, -50%);
         }
+
+        .play-twice-wrapper {
+            position: absolute;
+            width: 100%;
+            top: 110%;
+            height: 1em;
+            display: flex;
+            align-items: center;
+        }
+
+        .play-twice-indicator {
+            background: #C0C0C0;
+            display: inline-block;
+            height: 0.2em;
+
+        }
+
+        .play-twice-indicator-end {
+            background: #C0C0C0;
+            display: inline-block;
+            margin-right: 0.8em;
+            width: 0.2em;
+            height: 1.5em;
+        }
+
 
     </style>
 </head>
 <body>
 
 <h1></h1>
-<p>Husk at stemme dit G op i A. (Pas på med gamle strenge, da disse godt kan springe)</p>
+<p> - Husk at stemme dit G op i A. (Pas på med gamle strenge, da disse godt kan springe)</p>
+<div style="height:2em;font-size:16px;display: flex; align-items: center; justify-content: center">
+    <p style="   margin-right: 0.5em"> - Sektioner, der skal spilles to gange, er markeret med
+    </p>
+    <div class="play-twice-indicator" style="width: 7em"> </div>
+    <div class="play-twice-indicator-end"></div>
+
+</div>
+
 
 <div id="0" class="wrapper">
     <div class="string"></div>
@@ -90,6 +123,7 @@
     let current = 1;
     let wrapperNum = 0;
     let wrapper = $(`#${wrapperNum}`);
+    let playTwiceWrapper;
     let body = $('body');
 
     function insertArpp(notes, start, ascending) {
@@ -117,10 +151,8 @@
     function insertSweep(notes, start) {
 
 
-
-        const increment = 100/(notes.length-1);
+        const increment = 100 / (notes.length - 1);
         start--;
-
 
 
         notes.forEach((note, i) => {
@@ -130,30 +162,29 @@
         });
 
 
-
-        current+=3;
+        current += 3;
     }
 
-    function insertChord(notes,start) {
+    function insertChord(notes, start) {
         start--;
-        notes.forEach((note,i) => {
-            if(note >= 0) {
+        notes.forEach((note, i) => {
+            if (note >= 0) {
                 wrapper.append(`<span class="note" style="transform:translate(${100 * current}%,${(100 * start) - (i * 100)}%)">${note}</span>`)
             }
         });
 
-        current+=2;
+        current += 2;
 
         checkWrapperCapacity();
     }
 
-    function insertNote(note,string) {
+    function insertNote(note, string) {
 
         string--;
 
-        wrapper.append(`<span class="note" style="transform: translate(${100*current}%,${string*100}%)">${note}</span>`)
+        wrapper.append(`<span class="note" style="transform: translate(${100 * current}%,${string * 100}%)">${note}</span>`)
 
-        current+=2;
+        current += 2;
 
         checkWrapperCapacity();
     }
@@ -175,7 +206,7 @@
                 <div class="string"></div>
                 <div class="string"></div>
                 <div class="string"></div>
-                <span class="wrapper-num">${wrapperNum+1}</span>
+                <span class="wrapper-num">${wrapperNum + 1}</span>
                 <span class="note" style="transform: translate(0,0)">E</span>
                 <span class="note" style="transform: translate(0,100%)">H</span>
                 <span class="note" style="transform: translate(0,200%)">A</span>
@@ -192,6 +223,8 @@
     function insertText(headline) {
         body.append(`<h1>${headline}</h1>`)
     }
+
+
 
     function checkWrapperCapacity() {
         if (current > 36) {
@@ -230,116 +263,170 @@
     insertArpp([5, 7, 0, 7], 5, true);
     insertArpp([7, 0], 3, false);
     insertSpace()
-    insertSweep([5, 7, 0, 7,0], 5);
-
-
-
+    insertSweep([5, 7, 0, 7, 0], 5);
 
 
     insertWrapper()
 
-    insertSweep([0,5,2,3],5)
-    insertChord([2,3],3)
-    insertNote(5,4);
-    insertNote(0,5);
-    insertChord([2,3],3)
-    insertNote(5,4);
-    insertChord([0,2],3)
-    insertNote(0,5);
-    insertNote(5,4);
-    insertNote(2,2);
-    insertNote(0,3);
-    insertNote(0,5);
-    insertChord([2,0],2)
-    insertNote(5,4);
-    insertChord([2,3],3)
-    insertNote(0,5);
+    wrapper.append(`
+        <div class="play-twice-wrapper">
+            <div class="play-twice-indicator" style="width: 37em"></div>
+        </div>`
+    )
 
-    insertNote(5,4);
-    insertNote(3,2);
-    insertNote(2,3);
-    insertNote(0,5);
-    insertChord([2,0],2)
+    insertSweep([0, 5, 2, 3], 5)
+    insertChord([2, 3], 3)
+    insertNote(5, 4);
+    insertNote(0, 5);
+    insertChord([2, 3], 3)
+    insertNote(5, 4);
+    insertChord([0, 2], 3)
+    insertNote(0, 5);
+    insertNote(5, 4);
+    insertNote(2, 2);
 
-    insertNote(5,4);
-    insertChord([0,2],3)
-    insertNote(0,5);
-    insertNote(5,4);
-    insertNote(2,2);
-    insertNote(0,3);
-    insertNote(0,1);
-    insertNote(0,2);
-    insertNote(4,3);
-    insertNote(0,1);
+    insertNote(0, 3);
+    insertNote(0, 5);
+    insertChord([2, 0], 2)
+    insertNote(5, 4);
+    insertChord([2, 3], 3)
+    insertNote(0, 5);
 
-    insertSweep([0,5,2,3],5)
-    insertChord([2,3],3)
-    insertNote(5,4);
-    insertNote(0,5);
-    insertChord([2,3],3)
-    insertNote(5,4);
-    insertChord([0,2],3)
-    insertNote(0,5);
-    insertNote(5,4);
-    insertNote(2,2);
-    insertNote(0,3);
-    insertNote(0,5);
-    insertChord([2,0],2)
-    insertNote(5,4);
-    insertChord([2,3],3)
-    insertNote(0,5);
+    insertNote(5, 4);
+    insertNote(3, 2);
+    insertNote(2, 3);
+    insertNote(0, 5);
+    insertChord([2, 0], 2)
 
-    insertNote(5,4);
-    insertNote(3,2);
-    insertNote(2,3);
-    insertNote(0,5);
-    insertChord([2,0],2)
+    insertNote(5, 4);
 
-    insertNote(5,4);
-    insertChord([0,2],3)
-    insertNote(0,5);
-    insertNote(5,4);
-    insertNote(2,2);
-    insertNote(0,3);
-    insertNote(0,1);
-    insertNote(0,2);
-    insertNote(4,3);
-    insertNote(0,1);
+    wrapper.append(`
+        <div class="play-twice-wrapper">
+            <div class="play-twice-indicator" style="width: 26em"></div>
+            <div class="play-twice-indicator-end"></div>
+
+            <div class="play-twice-indicator" style="width: 10em"></div>
+        </div>`
+    )
+
+    insertChord([0, 2], 3)
+    insertNote(0, 5);
+    insertNote(5, 4);
+    insertNote(2, 2);
+    insertNote(0, 3);
+    insertNote(0, 1);
+    insertNote(0, 2);
+    insertNote(4, 3);
+    insertNote(0, 1);
+
 
     //-----Third section
 
-    insertChord([5,-1,-1,7],5)
-    insertNote(0,3);
-    insertNote(7,4);
-    insertChord([7,-1,-1,0],4)
-    insertNote(7,2)
-    insertNote(0,3);
-    insertNote(7,4)
+    insertChord([5, -1, -1, 7], 5)
+    insertNote(0, 3);
+    insertNote(7, 4);
+    insertChord([7, -1, -1, 0], 4)
+    insertNote(7, 2)
+    insertNote(0, 3);
+    insertNote(7, 4)
 
 
-    insertChord([7,-1,-1,8],5)
-    insertNote(0,3);
-    insertNote(9,4)
+    insertChord([7, -1, -1, 8], 5)
+    insertNote(0, 3);
+    insertNote(9, 4)
+    insertChord([9, -1, -1, 0], 4)
+    insertNote(8, 2)
+    insertNote(0, 3)
+    insertChord([0, -1, -1, 8], 5)
+    insertNote(0, 3)
+    insertNote(9, 4)
 
-//--------
-
-
-
-
-
-
-
-
-
-
-
+    wrapper.append(`
+        <div class="play-twice-wrapper">
+            <div class="play-twice-indicator" style="width: 22em"></div>
+            <div class="play-twice-indicator-end"></div>
 
 
-
-
+        </div>`
+    )
 
 
 
+
+    insertChord([5, -1, -1, 7], 5)
+    insertNote(0, 3);
+    insertNote(7, 4);
+    insertChord([7, -1, -1, 0], 4)
+    insertNote(7, 2)
+    insertNote(0, 3);
+    insertNote(7, 4)
+
+    insertChord([7, -1, -1, 8], 5)
+    insertNote(0, 3);
+    insertNote(9, 4);
+    insertNote(0, 3);
+    insertChord([5, -1, -1, 7], 5)
+    insertNote(0, 3);
+    insertNote(7, 4);
+    insertChord([7, -1, -1, 0], 4)
+    insertNote(0, 3);
+
+    insertChord([3, -1, -1, 5], 5)
+    insertNote(0, 3);
+    insertNote(5, 4);
+    insertChord([5, -1, -1, 0], 4)
+    insertNote(5, 2);
+    insertNote(0, 3);
+    insertNote(5, 4);
+
+    insertChord([2, -1, -1, 3], 5)
+    insertNote(0, 3);
+    insertNote(4, 4);
+    insertChord([4, -1, -1, 0], 4)
+    insertNote(3, 2);
+    insertNote(0, 3);
+    insertChord([2, -1, -1, 3], 5)
+    insertNote(0, 3);
+    insertNote(4, 4);
+
+
+    insertChord([0, -1, -1, 0], 5)
+    insertNote(4, 3);
+    insertNote(2, 4);
+
+    wrapper.append(`
+        <div class="play-twice-wrapper">
+            <div class="play-twice-indicator" style="width: 15em; opacity: 0"></div>
+
+            <div class="play-twice-indicator" style="width: 22em"></div>
+        </div>`
+    )
+
+    insertChord([2, -1, -1, 3], 5)
+    insertNote(0, 3);
+    insertNote(4, 4);
+    insertNote(0, 3);
+
+    insertChord([0, -1, -1, 0], 5)
+    insertNote(4, 3);
+    insertNote(2, 4);
+
+    insertNote(0, 1);
+    insertNote(0, 2);
+    insertNote(4, 3);
+    insertNote(0, 2);
+    insertNote(4, 3);
+    insertNote(2, 4);
+
+    wrapper.append(`
+        <div class="play-twice-wrapper">
+
+            <div class="play-twice-indicator" style="width: 10em"></div>
+            <div class="play-twice-indicator-end"></div>
+        </div>`
+    )
+
+    //--------
 
 
 </script>
